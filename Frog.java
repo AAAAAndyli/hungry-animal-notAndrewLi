@@ -47,13 +47,13 @@ public class Frog extends Actor
             setImage(idleRight[imageIndex]);
             imageIndex = (imageIndex + 1) % idleRight.length;
             if(imageIndex == 1){
-                move(100);
+                move(50);
             }
         } else{
             setImage(idleLeft[imageIndex]);
             imageIndex = (imageIndex + 1) % idleLeft.length;
             if(imageIndex == 1){
-                move(-100);
+                move(-50);
             }
         }
     }
@@ -69,7 +69,7 @@ public class Frog extends Actor
             move(-5);
         } 
         eat();
-        
+        bounding();
         animateFrog();
     }
     public void eat()
@@ -80,6 +80,19 @@ public class Frog extends Actor
             world.createPlane();
             world.increaseScore();
             bite.play();
+        }
+    }
+    public void bounding()
+    {
+        if(getX()>600)
+        {
+            setLocation(600, getY());
+            facingRight = false;
+        }
+        else if(getX() < 0)
+        {
+            setLocation(0, getY());
+            facingRight = true;
         }
     }
 }

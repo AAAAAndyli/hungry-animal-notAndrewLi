@@ -13,8 +13,8 @@ public class MyWorld extends World
      * Constructor for objects of class MyWorld.
      * 
      */
-    
-    
+    Label gameOverLabel = new Label("Game over", 100);
+    private boolean isGameOver = false;
     public int score = 0;
     Label scoreLabel;
     GreenfootImage background = new GreenfootImage("images/shrekSwamp.jpg");
@@ -35,10 +35,19 @@ public class MyWorld extends World
         createPlane();
     }
     
+    public void act()
+    {
+        if(isGameOver&&Greenfoot.isKeyDown("space"))
+        {
+            restart();
+        }
+    }
+    
     public void gameOver(){
-        Label gameOverLabel = new Label ("Game Over", 100);
+        gameOverLabel.setValue("Game Over");
         addObject(gameOverLabel, 300, 200);
         gameOverLabel.setFillColor(Color.RED);
+        isGameOver = true;
     }
     
     public void increaseScore(){
@@ -55,5 +64,14 @@ public class MyWorld extends World
         int x = Greenfoot.getRandomNumber(600);
         int y = 0;
         addObject(plane, x, y);
+    }
+    
+    public void restart()
+    {
+        isGameOver = false;
+        scoreLabel.setValue(0);
+        score = 0;
+        createPlane();
+        gameOverLabel.setValue("");
     }
 }
